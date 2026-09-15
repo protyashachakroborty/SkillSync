@@ -4,28 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillSync - Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff, #f8faff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 900px;
+            max-width: 95%;
+            min-height: 550px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .welcome-section {
+            width: 50%;
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: white;
+            padding: 60px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .welcome-section h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            font-size: 16px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .login-section {
+            width: 50%;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-section h1 {
+            font-size: 30px;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            background: #3730a3;
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #777;
+        }
+
+        .register-text a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .welcome-section,
+            .login-section {
+                width: 100%;
+            }
+
+            .welcome-section {
+                padding: 35px;
+            }
+
+            .login-section {
+                padding: 40px 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>SkillSync</h1>
-    <h2>Student Login</h2>
+    <div class="container">
 
-    <form>
-        <label>Email:</label>
-        <input type="email" placeholder="Enter your email">
+        <div class="welcome-section">
+            <div class="logo">SkillSync</div>
 
-        <br><br>
+            <h2>Build Better Teams.</h2>
 
-        <label>Password:</label>
-        <input type="password" placeholder="Enter your password">
+            <p>
+                Find teammates with complementary skills,
+                discover suitable projects, and follow a
+                clear learning roadmap.
+            </p>
+        </div>
 
-        <br><br>
+        <div class="login-section">
 
-        <button type="submit">Login</button>
-    </form>
+            <h1>Welcome Back</h1>
 
-    <p>Don't have an account? <a href="#">Sign Up</a></p>
+            <p class="subtitle">
+                Login to continue to SkillSync
+            </p>
+
+            <form>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="register-text">
+                Don't have an account?
+                <a href="#">Create Account</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </body>
 </html>
