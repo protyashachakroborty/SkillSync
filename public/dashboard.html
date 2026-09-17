@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SkillSync - Team Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="logo">SkillSync</span>
+    <a href="profile.html">My Profile</a>
+    <a href="dashboard.html">Team Dashboard</a>
+    <a href="#" id="logout">Logout</a>
+  </nav>
+
+  <div class="card wide">
+    <h1>Team Dashboard</h1>
+    <div id="content">Loading...</div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const teamId = localStorage.getItem('teamId');
+    const content = document.getElementById('content');
+
+    async function loadDashboard() {
+      if (!teamId) {
+        content.innerHTML = '<p>You are not part of a team yet. Go to <a href="profile.html">My Profile</a> to request one.</p>';
+        return;
+      }
+      try {
+        const data = await api(`/teams/${teamId}`, 'GET');
+        let html = `<h2>${data.team.TeamName} (${data.team.SoftwareCategory})</h2>`;
+
+        html += '<h3>Members & Roles</h3><table><tr><th>Name</th><th>Role</th><th>Programming</th><th>Database</th><th>UI/UX</th><th>Presentation</th></tr>';
+        data.members.forEach(m => {
+          html += `<tr><td>${m.Name}</td><td>${m.AssignedRole}</td><td>${m.ProgrammingSkill ?? '-'}</td><td>${m.DatabaseSkill ?? '-'}</td><td>${m.UIUXSkill ?? '-'}</td><td>${m.PresentationSkill ?? '-'}</td></tr>`;
+        });
+        html += '</table>';
+
+        if (data.project) {
+          html += `<h3>Suggested Project</h3><p><strong>${data.project.ProjectName}</strong> - ${data.project.Description}</p>`;
+          html += `<button id="loadRoadmap">View Learning Roadmap</button><div id="roadmap"></div>`;
+        }
+
+        content.innerHTML = html;
+
+        if (data.project) {
+          document.getElementById('loadRoadmap').addEventListener('click', async () => {
+            const r = await api(`/roadmap/${encodeURIComponent(data.team.SoftwareCategory)}`, 'GET');
+            document.getElementById('roadmap').innerHTML =
+              '<ol>' + r.steps.map(s => `<li>${s}</li>`).join('') + '</ol>';
+          });
+        }
+      } catch (err) {
+        content.innerHTML = `<p>${err.message}</p>`;
+      }
+    }
+    loadDashboard();
+
+    document.getElementById('logout').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
